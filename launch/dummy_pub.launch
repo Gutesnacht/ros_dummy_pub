@@ -1,10 +1,11 @@
 <!--ROS Demo MOVEIT-->
 <launch>
+    <arg name="node_name" default="default_name" doc="node name argument" />	
     <arg name="topic_name" default="/dummy_pub" doc="topic name under which the choosen message type will be published" />	
     <arg name="msg_type" default="PointStamped" doc="message type to be published - only Stamped messages are supported (geometry_msgs stamped, nav_msgs stamped)" />
     <arg name="publish_rate" default="100" doc="Publish rate of the node." />
 
-     <node name="test_node" pkg="ros_dummy_pub" type="rosdummypub" respawn="false" output="screen">
+     <node name="$(arg node_name)" pkg="ros_dummy_pub" type="rosdummypub" respawn="false" output="screen">
         <param name="topic_name" type="str" value="$(arg topic_name)"/>
         <param name="msg_type" type="str" value="$(arg msg_type)"/>
         <param name="publish_rate" type="int" value="$(arg publish_rate)"/>
