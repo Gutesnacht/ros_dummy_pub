@@ -1,0 +1,61 @@
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "",
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "includePath": [
+                "/home/lwoehle/catkin_ma/devel/include/**",
+                "/opt/ros/kinetic/include/**",
+                "/home/lwoehle/catkin_ma/src/ros_canopen/canopen_402/include/**",
+                "/home/lwoehle/catkin_ma/src/ros_canopen/canopen_chain_node/include/**",
+                "/home/lwoehle/catkin_ma/src/ros_canopen/canopen_master/include/**",
+                "/home/lwoehle/catkin_ma/src/geographic_info/geodesy/include/**",
+                "/home/lwoehle/catkin_ma/src/industrial_core/industrial_robot_client/include/**",
+                "/home/lwoehle/catkin_ma/src/industrial_core/industrial_trajectory_filters/include/**",
+                "/home/lwoehle/catkin_ma/src/industrial_core/industrial_utils/include/**",
+                "/home/lwoehle/catkin_ma/src/kinova-ros/kinova_moveit/inverse_kinematics_plugins/ikfast/j2n6s300_ikfast/include/**",
+                "/home/lwoehle/catkin_ma/src/kinova-ros/kinova_moveit/inverse_kinematics_plugins/ikfast/j2s6s300_ikfast/include/**",
+                "/home/lwoehle/catkin_ma/src/kinova-ros/kinova_moveit/inverse_kinematics_plugins/ikfast/j2s7s300_ikfast/include/**",
+                "/home/lwoehle/catkin_ma/src/jog_arm/jog_api/include/**",
+                "/home/lwoehle/catkin_ma/src/jog_arm/jog_arm/include/**",
+                "/home/lwoehle/catkin_ma/src/kinova-ros/kinova_moveit/kinova_arm_moveit_demo/include/**",
+                "/home/lwoehle/catkin_ma/src/kinova-ros/kinova_driver/include/**",
+                "/home/lwoehle/catkin_ma/src/kinove_jog_sub_pub/include/**",
+                "/home/lwoehle/catkin_ma/src/kinova-ros/kinova_moveit/inverse_kinematics_plugins/ikfast/m1n6s300_ikfast/include/**",
+                "/home/lwoehle/catkin_ma/src/meta_gaze_fusion/include/**",
+                "/home/lwoehle/catkin_ma/src/meye_fusion/include/**",
+                "/home/lwoehle/catkin_ma/src/motion_capture_system/mocap_base/include/**",
+                "/home/lwoehle/catkin_ma/src/motion_capture_system/mocap_qualisys/include/**",
+                "/home/lwoehle/catkin_ma/src/motion_capture_system/mocap_vicon/include/**",
+                "/home/lwoehle/catkin_ma/src/multisensor_ros_record/include/**",
+                "/home/lwoehle/catkin_ma/src/pupil_ros_cpt/opticalflow_try/include/**",
+                "/home/lwoehle/catkin_ma/src/pupil_ros_cpt/pupil_ros_arucomono/include/**",
+                "/home/lwoehle/catkin_ma/src/pupil_ros_cpt/pupil_ros_cpt/include/**",
+                "/home/lwoehle/catkin_ma/src/pupil_ros_cpt/pupil_ros_rawv/include/**",
+                "/home/lwoehle/catkin_ma/src/pupil_ros_cpt/pupil_ros_vcpt/include/**",
+                "/home/lwoehle/catkin_ma/src/realsense-ros/realsense2_camera/include/**",
+                "/home/lwoehle/catkin_ma/src/robot_localization/include/**",
+                "/home/lwoehle/catkin_ma/src/robotiq/robotiq_2f_gripper_action_server/include/**",
+                "/home/lwoehle/catkin_ma/src/robotiq/robotiq_2f_gripper_control/include/**",
+                "/home/lwoehle/catkin_ma/src/robotiq/robotiq_ethercat/include/**",
+                "/home/lwoehle/catkin_ma/src/robotiq/robotiq_ft_sensor/include/**",
+                "/home/lwoehle/catkin_ma/src/wiotv1_ros/wiot_plugin/include/**",
+                "/home/lwoehle/catkin_ma/src/industrial_core/simple_message/include/**",
+                "/home/lwoehle/catkin_ma/src/ros_canopen/socketcan_bridge/include/**",
+                "/home/lwoehle/catkin_ma/src/ros_canopen/socketcan_interface/include/**",
+                "/home/lwoehle/catkin_ma/src/unique_identifier/unique_id/include/**",
+                "/home/lwoehle/catkin_ma/src/universal_robot/ur_kinematics/include/**",
+                "/home/lwoehle/catkin_ma/src/ur_modern_driver/include/**",
+                "/home/lwoehle/catkin_ma/src/wiot_pupil_fusion/include/**",
+                "/usr/include/**"
+            ],
+            "name": "ROS",
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}
