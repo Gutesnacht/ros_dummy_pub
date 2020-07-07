@@ -51,6 +51,7 @@ public:
     {
         T msg_type;
         msg_type.header.stamp = ros::Time::now();
+        msg_type.header.frame_id = "world";
 
         pub_.publish(msg_type);
         return;
@@ -107,11 +108,11 @@ int main(int argc, char **argv)
     }
     else if (message_type_ == "QuaternionStamped")
     {
-        publisher_ = new template_publisher<geometry_msgs::PoseStamped>();
+        publisher_ = new template_publisher<geometry_msgs::QuaternionStamped>();
     }
     else if (message_type_ == "TwistStamped")
     {
-        publisher_ = new template_publisher<geometry_msgs::PoseStamped>();
+        publisher_ = new template_publisher<geometry_msgs::TwistStamped>();
     }
     else if (message_type_ == "Odometry")
     {
