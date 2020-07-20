@@ -69,27 +69,31 @@ int main(int argc, char **argv)
     std::string topic_pub_name_;
     std::string message_type_;
     int pub_rate_;
+    std::string namespace_;
 
     // common stuff
     std::string node_name_ = ros::this_node::getName();
     nh_.getParam(node_name_ + "/topic_name", topic_pub_name_);
     nh_.getParam(node_name_ + "/msg_type", message_type_);
     nh_.getParam(node_name_ + "/publish_rate", pub_rate_);
+    
+    nh_.getParam(node_name_ + "/namespace", namespace_);
 
     std::stringstream append_;
 
     // create common msg_class
     base_msgClass *publisher_;
+    std::string a_slash = "/";
 
     if (topic_pub_name_ == "/dummy_pub")
     {
-        std::string a_slash = "/";
-        append_ << topic_pub_name_ << a_slash << message_type_;
+        
+        append_ <<  topic_pub_name_ << a_slash << message_type_;
         ROS_INFO_STREAM("Renaming default topic to Message Type Topic: " << append_.str());
     }
     else
     {
-        append_ << topic_pub_name_;
+        append_ << namespace_<< a_slash << topic_pub_name_;
     }
 
     ROS_INFO_STREAM("Starting node:\n TopicName: " << append_.str() << " \n MessageType: " << message_type_ << " \n Publishrate: " << pub_rate_ << " \n --------------------");
