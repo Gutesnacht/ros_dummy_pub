@@ -62,6 +62,14 @@ int main(int argc, char **argv)
 {
 
     ros::init(argc, argv, "dummy_publisher_");
+    // check if master is present
+    ROS_INFO_STREAM("Check if roscore is found:");
+    if ( ! ros::master::check() ) {
+        ROS_ERROR_STREAM("No roscore found");
+        return 1;
+    }
+    ROS_INFO_STREAM("roscore found --> checking for topics");
+
     ros::NodeHandle nh_;
     ros::AsyncSpinner spinner(1);
 
@@ -70,6 +78,7 @@ int main(int argc, char **argv)
     std::string message_type_;
     int pub_rate_;
     std::string namespace_;
+    bool is_published = false;
 
     // common stuff
     std::string node_name_ = ros::this_node::getName();
@@ -96,49 +105,115 @@ int main(int argc, char **argv)
         append_ << namespace_<< a_slash << topic_pub_name_;
     }
 
-    ROS_INFO_STREAM("Starting node:\n TopicName: " << append_.str() << " \n MessageType: " << message_type_ << " \n Publishrate: " << pub_rate_ << " \n --------------------");
+    // check if the topic to be published is already published
+    ros::master::V_TopicInfo topic_infos;
+    ros::master::getTopics(topic_infos);
 
-    ros::Rate loop_rate(pub_rate_);
+    for (ros::master::V_TopicInfo::iterator it = topic_infos.begin() ; it != topic_infos.end(); it++) {
+        const ros::master::TopicInfo& info = *it;
+        ROS_DEBUG_STREAM("Topic : " << it - topic_infos.begin() << ": " << info.name << " -> " << info.datatype);
+        std::string str_comp_=info.name;
+        // check if topics are present 
+        if(str_comp_.find(append_.str())!=std::string::npos){
+            ROS_ERROR_STREAM(""<< append_.str()<< "Is already beeing published. Shutting down this dummy publisher");
+            is_published = true;//return 1;
 
-    // check for message and create new pointer instance with correct template type.
 
-    if (message_type_ == "PointStamped")
-    {
-        publisher_ = new template_publisher<geometry_msgs::PointStamped>();
-    }
-    else if (message_type_ == "PoseStamped")
-    {
-        publisher_ = new template_publisher<geometry_msgs::PoseStamped>();
-    }
-    else if (message_type_ == "QuaternionStamped")
-    {
-        publisher_ = new template_publisher<geometry_msgs::QuaternionStamped>();
-    }
-    else if (message_type_ == "TwistStamped")
-    {
-        publisher_ = new template_publisher<geometry_msgs::TwistStamped>();
-    }
-    else if (message_type_ == "Odometry")
-    {
-        publisher_ = new template_publisher<nav_msgs::Odometry>();
-    }
-    else
-    {
-        ROS_INFO_STREAM("I do not know the message: " << message_type_ << ". I know: \n PoseStamped, PointStamped, QuaternionStamped, TwistStamped and Odometry.");
-        return 0;
-    }
+            ros::Duration durr = ros::Duration(2);
 
-    publisher_->create_pub(&nh_, append_.str());
+            if (message_type_ == "PointStamped")
+            {
+                geometry_msgs::PointStamped::ConstPtr ret = ros::topic::waitForMessage<geometry_msgs::PointStamped>( append_.str(), nh_, durr);
+                if ( ret = NULL){
+                    is_published = false;
+                    ROS_INFO_STREAM("" << append_.str() << " is streamed but did not send annything for 2 seconds-> Dummy publisher is started ");
+                }
+            }
+            else if (message_type_ == "PoseStamped")
+            {
+                geometry_msgs::PoseStamped::ConstPtr ret = ros::topic::waitForMessage<geometry_msgs::PoseStamped>( append_.str(), nh_, durr);
+                if ( ret = NULL){
+                    is_published = false;
+                    ROS_INFO_STREAM("" << append_.str() << " is streamed but did not send annything for 2 seconds-> Dummy publisher is started ");
+                }
+            }
+            else if (message_type_ == "QuaternionStamped")
+            {
+                geometry_msgs::QuaternionStamped::ConstPtr ret = ros::topic::waitForMessage<geometry_msgs::QuaternionStamped>( append_.str(), nh_, durr);
+                if ( ret = NULL){
+                    is_published = false;
+                    ROS_INFO_STREAM("" << append_.str() << " is streamed but did not send annything for 2 seconds-> Dummy publisher is started ");
+                }
+            }
+            else if (message_type_ == "TwistStamped")
+            {
+                geometry_msgs::TwistStamped::ConstPtr ret = ros::topic::waitForMessage<geometry_msgs::TwistStamped>( append_.str(), nh_, durr);
+                if ( ret = NULL){
+                    is_published = false;
+                    ROS_INFO_STREAM("" << append_.str() << " is streamed but did not send annything for 2 seconds-> Dummy publisher is started ");
+                }
+            }
+            else if (message_type_ == "Odometry")
+            {
+               nav_msgs::Odometry::ConstPtr ret = ros::topic::waitForMessage<nav_msgs::Odometry>( append_.str(), nh_, durr);
+               if ( ret = NULL){
+                    is_published = false;
+                    ROS_INFO_STREAM("" << append_.str() << " is streamed but did not send annything for 2 seconds-> Dummy publisher is started ");
+                }
+            }
+            else
+            {
+                ROS_INFO_STREAM("I do not know the message: " << message_type_ << ". I know: \n PoseStamped, PointStamped, QuaternionStamped, TwistStamped and Odometry.");
+                ros::shutdown();
+            }
+            
+        }
+    }
+    if(!is_published){
+        ROS_INFO_STREAM("Starting node:\n TopicName: " << append_.str() << " \n MessageType: " << message_type_ << " \n Publishrate: " << pub_rate_ << " \n --------------------");
 
-    spinner.start();
-    while (ros::ok())
-    {
-        publisher_->pub_data();
-        loop_rate.sleep();
+        ros::Rate loop_rate(pub_rate_);
+
+        // check for message and create new pointer instance with correct template type.
+
+        if (message_type_ == "PointStamped")
+        {
+            publisher_ = new template_publisher<geometry_msgs::PointStamped>();
+        }
+        else if (message_type_ == "PoseStamped")
+        {
+            publisher_ = new template_publisher<geometry_msgs::PoseStamped>();
+        }
+        else if (message_type_ == "QuaternionStamped")
+        {
+            publisher_ = new template_publisher<geometry_msgs::QuaternionStamped>();
+        }
+        else if (message_type_ == "TwistStamped")
+        {
+            publisher_ = new template_publisher<geometry_msgs::TwistStamped>();
+        }
+        else if (message_type_ == "Odometry")
+        {
+            publisher_ = new template_publisher<nav_msgs::Odometry>();
+        }
+        else
+        {
+            ROS_INFO_STREAM("I do not know the message: " << message_type_ << ". I know: \n PoseStamped, PointStamped, QuaternionStamped, TwistStamped and Odometry.");
+            ros::shutdown();
+        }
+
+        publisher_->create_pub(&nh_, append_.str());
+
+        spinner.start();
+        while (ros::ok())
+        {
+            publisher_->pub_data();
+            loop_rate.sleep();
+        }
     }
 
     ROS_INFO_STREAM("shutdown wait ..");
-    return 0;
+    ros::shutdown();
 
     ROS_INFO_STREAM("see ya ..");
 }
